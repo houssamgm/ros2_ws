@@ -1,22 +1,42 @@
 # diffbot_sim — Working Nav2 + SLAM Run Commands 
 
-## Terminal 1 — Simulation (Gazebo + Robot)
+## Terminal 1 — Simulation (Gazebo + Robot-follower)
 
-source /opt/ros/humble/setup.bash
-source ~/ros2_ws/install/setup.bash
+#Nav2 (old behavior):
 
-ros2 launch diffbot_sim sim.launch.py
+ros2 launch diffbot_sim sim.launch.py use_nav2:=true
+
+#no Nav2:
+
+ros2 launch diffbot_sim sim.launch.py use_nav2:=false
 
 
-##Terminal 2 — Navigation Stack (Nav2)
+## Terminal 2 leaderbot
 
-source /opt/ros/humble/setup.bash
-source ~/ros2_ws/install/setup.bash
+ros2 launch diffbot_sim leader_spawn.launch.py
 
-ros2 launch diffbot_sim bringup_navigation.py use_sim_time:=true use_composition:=False
 
-##Terminal 3 — RViz (Nav2 View)
-source /opt/ros/humble/setup.bash
-source ~/ros2_ws/install/setup.bash
+# Terminal 3 leader control
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/leader/cmd_vel
+
+
+##Terminal 4 (optional) — RViz
 
 ros2 launch diffbot_sim rviz.launch.py
+
+
+#Terminal 5 — Start the follow node using nav2
+
+ros2 run follow_target_nav2 moving_goal
+
+
+#Terminal 6 — pid follow node + DWB
+
+ros2 run follow_target_nav2 pid_follow
+
+
+#Terminal6  — guide node
+
+ros2 run diffbot_sim guide_node
+
