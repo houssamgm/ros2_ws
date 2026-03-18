@@ -26,7 +26,6 @@ setup(
         'console_scripts': [
             'uwb_distance = follow_target_nav2.uwb_distance:main',
             'pid_follow = follow_target_nav2.pid_follow:main',
-            'lidar_follow = follow_target_nav2.lidar_follow:main',
             'moving_goal = follow_target_nav2.moving_goal:main',
         ],
     },

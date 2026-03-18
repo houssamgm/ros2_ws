@@ -27,7 +27,7 @@ def generate_launch_description():
     )
     # Specify the path to your world file
     world_file_path = os.path.join(
-        get_package_share_directory(package_name), 'worlds', 'living_room.world' 
+        get_package_share_directory(package_name), 'worlds', 'house.world' 
     )
 
     gazebo = IncludeLaunchDescription(

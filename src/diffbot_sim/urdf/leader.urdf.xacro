@@ -68,6 +68,7 @@
     <origin xyz="0 0 -0.097" rpy="0 0 0"/>
   </joint>
 
+
   <link name="base_footprint"/>
 
   <joint name="chassis_joint" type="fixed">
@@ -102,41 +103,145 @@
     </xacro:inertial_box>
   </link>
 
-  <!-- SMALL BOX FOR LIDAR DETECTION -->
-
-  <joint name="lidar_box_joint" type="fixed">
-    <parent link="chassis"/>
-    <child link="lidar_box"/>
-    <origin xyz="0 0 0.25" rpy="0 0 0"/>
-  </joint>
-
-  <link name="lidar_box">
-    <visual>
-      <geometry>
-        <box size="0.08 0.08 0.08"/>
-      </geometry>
-      <material name="red"/>
-    </visual>
-
-    <collision>
-      <geometry>
-        <box size="0.08 0.08 0.08"/>
-      </geometry>
-    </collision>
-
-    <xacro:inertial_box mass="0.1" x="0.08" y="0.08" z="0.08">
-      <origin xyz="0 0 0"/>
-    </xacro:inertial_box>
-  </link>
-
-  <gazebo reference="lidar_box">
-    <material>Gazebo/Red</material>
-  </gazebo>
-
   <gazebo reference="chassis">
     <material>Gazebo/Blue</material>
   </gazebo>
 
-  <!-- REST OF YOUR ORIGINAL FILE CONTINUES UNCHANGED -->
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="${front_wheel_x} ${wheel_offset_y} ${wheel_center_z}" rpy="-${pi/2} 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="front_left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+    </collision>
+    <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_cylinder>
+  </link>
+  <gazebo reference="front_left_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="${front_wheel_x} ${-wheel_offset_y} ${wheel_center_z}" rpy="${pi/2} 0 0"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+  <link name="front_right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+    </collision>
+    <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_cylinder>
+  </link>
+  <gazebo reference="front_right_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="back_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_left_wheel"/>
+    <origin xyz="${back_wheel_x} ${wheel_offset_y} ${wheel_center_z}" rpy="-${pi/2} 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="back_left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+    </collision>
+    <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_cylinder>
+  </link>
+  <gazebo reference="back_left_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="back_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_right_wheel"/>
+    <origin xyz="${back_wheel_x} ${-wheel_offset_y} ${wheel_center_z}" rpy="${pi/2} 0 0"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+  <link name="back_right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+      </geometry>
+    </collision>
+    <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_cylinder>
+  </link>
+  <gazebo reference="back_right_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <update_rate>100</update_rate>
+      <ros>
+        <namespace>/leader</namespace>
+      </ros>
+      <num_wheel_pairs>2</num_wheel_pairs>
+      <left_joint>front_left_wheel_joint</left_joint>
+      <right_joint>front_right_wheel_joint</right_joint>
+      <left_joint>back_left_wheel_joint</left_joint>
+      <right_joint>back_right_wheel_joint</right_joint>
+      <wheel_separation>0.22</wheel_separation>
+      <wheel_separation>0.22</wheel_separation>
+      <wheel_diameter>0.021</wheel_diameter>
+      <wheel_diameter>0.021</wheel_diameter>
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <use_stamped_vel>false</use_stamped_vel>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>leader/base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
 
 </robot>
