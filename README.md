@@ -1,4 +1,4 @@
-## Installation
+# Installation
 #Clone the repository
 1. Clone the repository
 git clone https://github.com/houssamgm/ros2_ws.git
@@ -12,15 +12,15 @@ colcon build
 source install/setup.bash
 
 
-# diffbot_sim — Working Nav2 + SLAM Run Commands 
+# how to run it 
 
 ## Terminal 1 — Simulation (Gazebo + Robot-follower)
 
-#Nav2 (old behavior):
+###Nav2 (old behavior):
 
 ros2 launch diffbot_sim sim.launch.py use_nav2:=true
 
-#no Nav2:
+###no Nav2:
 
 ros2 launch diffbot_sim sim.launch.py use_nav2:=false
 
