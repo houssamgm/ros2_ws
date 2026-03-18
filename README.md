@@ -25,11 +25,11 @@ source install/setup.bash
 
 ## Terminal 1 — Simulation (Gazebo + Robot-follower)
 
-###Nav2 (old behavior):
+### Nav2:
 
 ros2 launch diffbot_sim sim.launch.py use_nav2:=true
 
-###no Nav2:
+### no Nav2:
 
 ros2 launch diffbot_sim sim.launch.py use_nav2:=false
 
