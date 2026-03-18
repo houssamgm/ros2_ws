@@ -1,14 +1,14 @@
 # Installation
 ## Clone the repository
-1. Clone the repository
+## 1. Clone the repository
 git clone https://github.com/houssamgm/ros2_ws.git
 cd ros2_ws
-2. Install dependencies
+## 2. Install dependencies
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
-3. Build the workspace
+## 3. Build the workspace
 colcon build
-4. Source the workspace
+## 4. Source the workspace
 source install/setup.bash
 
 
