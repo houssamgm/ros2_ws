@@ -29,10 +29,6 @@ source install/setup.bash
 
 ros2 launch diffbot_sim sim.launch.py use_nav2:=true
 
-### no Nav2:
-
-ros2 launch diffbot_sim sim.launch.py use_nav2:=false
-
 
 ## Terminal 2 leaderbot
 
@@ -59,7 +55,7 @@ ros2 run follow_target_nav2 moving_goal
 ros2 run follow_target_nav2 pid_follow
 
 
-## Terminal 7  — guide node
+## Terminal 7  — guide node(works only on house.world)
 
 ros2 run diffbot_sim guide_node
 
