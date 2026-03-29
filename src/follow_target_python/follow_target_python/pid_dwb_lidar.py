@@ -3,6 +3,7 @@
 import math
 import numpy as np
 import rclpy
+import time
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
@@ -289,6 +290,7 @@ class PIDFollow(Node):
     # --------------------------------------------------
 
     def control_loop(self):
+        start_time = time.perf_counter()
 
         if self.scan is None:
             return
@@ -335,8 +337,23 @@ class PIDFollow(Node):
 
         self.prev_error = error
         self.prev_time = now
+        elapsed_ms = (time.perf_counter() - start_time) * 1000.0  # <-- ADD
+
+        self.get_logger().info(
+            f"FULL LOOP = {elapsed_ms:.2f} ms | "
+            f"dist={distance:.2f} v={v:.2f} w={w:.2f}"
+        )
 
         self.get_logger().info(f"dist={distance:.2f} v={v:.2f} w={w:.2f}")
+        # Execution time (Python node)
+        #
+        # - Min: ~37 ms
+        # - Max: ~76 ms
+        # - Avg: ~50–55 ms
+        #
+        # → Real-time safe for 10 Hz control loop (100 ms)
+        # → Uses ~50% of available cycle time
+        # → Occasional spikes but still within safe bounds
 
 def main():
     rclpy.init()

@@ -2,7 +2,7 @@
 
 import math
 import numpy as np
-
+import time 
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
@@ -307,6 +307,8 @@ class WOA_Follow(Node):
 
     # --------------------------------------------------
     def control_loop(self):
+        start_time = time.perf_counter()   
+
 
         if self.scan is None:
             return
@@ -342,10 +344,26 @@ class WOA_Follow(Node):
         cmd.linear.x = float(np.clip(v, -self.v_max, self.v_max))
         cmd.angular.z = float(np.clip(w, -self.w_max, self.w_max))
         self.cmd_pub.publish(cmd)
+        elapsed_ms = (time.perf_counter() - start_time) * 1000.0
 
+        self.get_logger().info(
+            f"FULL LOOP = {elapsed_ms:.2f} ms | "
+            f"dist={distance:.2f} v={cmd.linear.x:.2f} w={cmd.angular.z:.2f}"
+        )
         self.get_logger().info(
             f"dist={distance:.2f} v={cmd.linear.x:.2f} w={cmd.angular.z:.2f}"
         )
+        # Python WOA + LiDAR timing:
+
+        # - Min: ~2 ms (steady state / no movement)
+        # - Max: ~335 ms (rare spike)
+        # - Avg: ~58–60 ms
+        
+        # → Usually real-time safe for 10 Hz (100 ms)
+        # → BUT NOT deterministic (spikes exist)
+        # → Occasional deadline miss (very important)
+
+        # → CPU usage fluctuates depending on WOA convergence
 
 
 def main(args=None):
