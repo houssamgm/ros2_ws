@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="dwa_test_world">
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <gui fullscreen='0'>
+      <camera name='top_view'>
+        <pose>0 0 12 0 1.57 0</pose>
+      </camera>
+    </gui>
+
+    <model name="wall_1">
+      <static>true</static>
+      <link name="link">
+        <pose>0 6 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>12.2 0.2 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12.2 0.2 1</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <model name="wall_2">
+      <static>true</static>
+      <link name="link">
+        <pose>0 -6 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>12.2 0.2 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12.2 0.2 1</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <model name="wall_3">
+      <static>true</static>
+      <link name="link">
+        <pose>6 0 0.5 0 0 1.57</pose>
+        <collision name="collision"><geometry><box><size>12.2 0.2 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12.2 0.2 1</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <model name="wall_4">
+      <static>true</static>
+      <link name="link">
+        <pose>-6 0 0.5 0 0 1.57</pose>
+        <collision name="collision"><geometry><box><size>12.2 0.2 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12.2 0.2 1</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <model name="obs_1"><static>1</static><link name="l"><pose>-5 -5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_2"><static>1</static><link name="l"><pose>-3 -5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_3"><static>1</static><link name="l"><pose>-1 -5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_4"><static>1</static><link name="l"><pose>1 -5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_5"><static>1</static><link name="l"><pose>3 -5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    
+    <model name="obs_6"><static>1</static><link name="l"><pose>-4 -3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_7"><static>1</static><link name="l"><pose>-2 -3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_8"><static>1</static><link name="l"><pose>0 -3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_9"><static>true</static><link name="l"><pose>2 -3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_10"><static>1</static><link name="l"><pose>4 -3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+
+    <model name="obs_11"><static>1</static><link name="l"><pose>-5 -2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_12"><static>1</static><link name="l"><pose>-2.5 -2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_13"><static>1</static><link name="l"><pose>1 -2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_14"><static>1</static><link name="l"><pose>3.5 -2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_15"><static>1</static><link name="l"><pose>5.5 -2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+
+    <model name="obs_16"><static>1</static><link name="l"><pose>-4 0 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_17"><static>1</static><link name="l"><pose>-2 0.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_18"><static>1</static><link name="l"><pose>0 -0.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_19"><static>1</static><link name="l"><pose>2.5 0 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_20"><static>1</static><link name="l"><pose>5 0.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+
+    <model name="obs_21"><static>1</static><link name="l"><pose>-5.5 2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_22"><static>1</static><link name="l"><pose>-3.5 2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_23"><static>1</static><link name="l"><pose>-1 2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_24"><static>1</static><link name="l"><pose>2 2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_25"><static>1</static><link name="l"><pose>4.5 2 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+
+    <model name="obs_26"><static>1</static><link name="l"><pose>-4.5 3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_27"><static>1</static><link name="l"><pose>-2.5 3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_28"><static>1</static><link name="l"><pose>0 3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_29"><static>1</static><link name="l"><pose>2.5 3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_30"><static>1</static><link name="l"><pose>5 3.5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+
+    <model name="obs_31"><static>1</static><link name="l"><pose>-5.5 5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_32"><static>1</static><link name="l"><pose>-3 5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_33"><static>1</static><link name="l"><pose>0 5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_34"><static>1</static><link name="l"><pose>3 5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+    <model name="obs_35"><static>1</static><link name="l"><pose>5.5 5 0.3 0 0 0</pose><collision name="c"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry></collision><visual name="v"><geometry><cylinder><radius>0.1</radius><length>0.6</length></cylinder></geometry><material><ambient>1 0 0 1</ambient></material></visual></link></model>
+
+  </world>
+</sdf>

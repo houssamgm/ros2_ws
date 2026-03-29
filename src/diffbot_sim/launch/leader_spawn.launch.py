@@ -29,7 +29,7 @@ def generate_launch_description():
                 '-topic', '/leader/robot_description',
                 '-x', '1.0',
                 '-y', '0.0',
-                '-z', '0.1'
+                '-z', '0.075'
             ]
         )
     ])

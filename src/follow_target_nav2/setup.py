@@ -24,9 +24,13 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'uwb_distance = follow_target_nav2.uwb_distance:main',
-            'pid_follow = follow_target_nav2.pid_follow:main',
-            'moving_goal = follow_target_nav2.moving_goal:main',
+            'orgwoa_lidar = follow_target_nav2.orgwoa_lidar:main',
+            'pid_dwb_tf = follow_target_nav2.pid_dwb_tf:main',
+            'pid_dwb_lidar = follow_target_nav2.suivi_LIDAR_sans_mur_en_gazebo:main',
+            'woa_dwb_tf = follow_target_nav2.woa_dwb_tf:main',
+            'orgwoa_tf = follow_target_nav2.orgwoa_tf:main',
+            'woa_dwb_lidar = follow_target_nav2.woa_dwb_lidar:main',
+            'nav2_follow = follow_target_nav2.nav2_follow:main',
         ],
     },
 )

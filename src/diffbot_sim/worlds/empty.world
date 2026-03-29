@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="dwa_test_world">
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- ✅ CAMERA VIEW (TOP-DOWN) -->
+    <gui fullscreen='0'>
+      <camera name='top_view'>
+        <!-- x y z roll pitch yaw -->
+        <pose>0 0 3 0 1.57 0</pose>
+      </camera>
+    </gui>
+
+    <!-- ================= WALLS ================= -->
+
+    <model name="wall_1">
+      <static>true</static>
+      <link name="link">
+        <pose>0 5 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_2">
+      <static>true</static>
+      <link name="link">
+        <pose>0 -5 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_3">
+      <static>true</static>
+      <link name="link">
+        <pose>6 0 0.5 0 0 1.57</pose>
+        <collision name="collision">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_4">
+      <static>true</static>
+      <link name="link">
+        <pose>-6 0 0.5 0 0 1.57</pose>
+        <collision name="collision">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>12 0.2 1</size></box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

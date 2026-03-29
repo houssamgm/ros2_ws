@@ -31,9 +31,9 @@
     </inertial>
   </xacro:macro>
 
-  <xacro:property name="chassis_length" value="0.2"/>
+  <xacro:property name="chassis_length" value="0.25"/>
   <xacro:property name="chassis_width"  value="0.2"/>
-  <xacro:property name="chassis_height" value="0.11"/>
+  <xacro:property name="chassis_height" value="0.14"/>
 
   <xacro:property name="wheel_radius"    value="0.021"/>  
   <xacro:property name="wheel_thickness" value="0.02"/>   
@@ -50,8 +50,8 @@
   <material name="orange">
     <color rgba="1 0.3 0.1 1"/>
   </material>
-  <material name="blue">
-    <color rgba="0.2 0.2 1 1"/>
+  <material name="green">
+    <color rgba="0 1 0 1"/>
   </material>
   <material name="black">
     <color rgba="0 0 0 1"/>
@@ -65,7 +65,7 @@
   <joint name="base_footprint_joint" type="fixed">
     <parent link="base_link"/>
     <child link="base_footprint"/>
-    <origin xyz="0 0 -0.097" rpy="0 0 0"/>
+    <origin xyz="0 0 -0.121" rpy="0 0 0"/>
   </joint>
 
 
@@ -79,32 +79,28 @@
 
   <link name="chassis">
     <visual>
-      <origin xyz="0.07 0 -0.01" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.06 0.2 0.09"/>
-      </geometry>
-      <material name="blue"/>
-    </visual>
-    <visual>
-      <origin xyz="-0.03 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.14 0.2 0.11"/>
-      </geometry>
-      <material name="blue"/>
-    </visual>
-    <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
       </geometry>
+      <material name="green"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+      </geometry>
     </collision>
-    <xacro:inertial_box mass="1.0" x="${chassis_length}" y="${chassis_width}" z="${chassis_height}">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+
+    <xacro:inertial_box mass="1.0"
+      x="${chassis_length}" y="${chassis_width}" z="${chassis_height}">
+      <origin xyz="0 0 0"/>
     </xacro:inertial_box>
   </link>
 
   <gazebo reference="chassis">
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/Green</material>
   </gazebo>
 
   <joint name="front_left_wheel_joint" type="continuous">
