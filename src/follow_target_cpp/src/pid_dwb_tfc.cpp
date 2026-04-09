@@ -250,6 +250,7 @@ private:
     // --------------------------------------------------
     void control_loop()
     {
+        auto loop_start = std::chrono::high_resolution_clock::now();  // <-- ADD
         geometry_msgs::msg::TransformStamped trans;
 
         try
@@ -303,8 +304,13 @@ private:
 
         prev_error_ = error;
         prev_time_ = now;
+        auto loop_end = std::chrono::high_resolution_clock::now();  // <-- ADD
+        double loop_time_ms = std::chrono::duration<double, std::milli>(loop_end - loop_start).count();
 
-        RCLCPP_INFO(this->get_logger(), "dist=%.2f  v=%.2f  w=%.2f", distance, v, w);
+        double err_abs = std::abs(distance - d_ref_);
+        RCLCPP_INFO(this->get_logger(),"err=%.3f", err_abs);        
+        RCLCPP_INFO(this->get_logger(), "PID+DWA total loop time = %.3f ms", loop_time_ms);
+
     }
 };
 

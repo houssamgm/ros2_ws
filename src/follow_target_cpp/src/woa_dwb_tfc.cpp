@@ -321,6 +321,7 @@ private:
 
     void control_loop()
     {
+        auto loop_start = std::chrono::high_resolution_clock::now();
         geometry_msgs::msg::TransformStamped trans;
 
         try
@@ -339,7 +340,6 @@ private:
         double heading = std::atan2(dy, dx);
 
         double v_cmd, w_cmd;
-        auto start = std::chrono::high_resolution_clock::now();   // <-- ADD
         if (std::abs(distance - d_ref_) < stop_threshold_ && std::abs(heading) < 0.08)
         {
             v_cmd = 0.0;
@@ -353,9 +353,6 @@ private:
         }
 
         auto filtered = dwa_safety_filter(v_cmd, w_cmd);
-        auto end = std::chrono::high_resolution_clock::now();     // <-- ADD
-        double solve_time_ms = std::chrono::duration<double, std::milli>(end - start).count();  // <-- ADD
-        RCLCPP_INFO(this->get_logger(), "WOA+DWA time = %.3f ms", solve_time_ms);  // <-- ADD
         v_cmd = filtered.first;
         w_cmd = filtered.second;
 
@@ -370,15 +367,12 @@ private:
         cmd.angular.z = std::clamp(w, -w_max_, w_max_);
 
         cmd_pub_->publish(cmd);
+        auto loop_end = std::chrono::high_resolution_clock::now();
+        double loop_time_ms = std::chrono::duration<double, std::milli>(loop_end - loop_start).count();
 
-        RCLCPP_INFO(this->get_logger(),"v=%.2f w=%.2f",cmd.linear.x,cmd.angular.z);
-        // WOA + DWA computation time:
-        // - Min: 11.45 ms
-        // - Max: 52.08 ms
-        // - Avg: 19.8 ms
-        //
-        // → Real-time safe for 10 Hz control loop (100 ms)
-        // → CPU usage ≈ 20–52%
+        double error = std::abs(distance - d_ref_);
+        RCLCPP_INFO(this->get_logger(),"err=%.3f", error);
+        RCLCPP_INFO(this->get_logger(),"WOA+DWA total loop time = %.3f ms", loop_time_ms);        
     }
 };
 
