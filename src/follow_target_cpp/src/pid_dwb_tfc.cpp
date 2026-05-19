@@ -26,13 +26,13 @@ public:
     {
         // ---------- PID parameters ----------
         d_ref_ = 0.7;
-        Kp_ = 1.2;
+        Kp_ = 3;
         Ki_ = 0.0;
-        Kd_ = 0.2;
+        Kd_ = 0.5;
         Kp_angle_ = 3.0;
 
         v_max_ = 0.6;
-        w_max_ = 1.5;
+        w_max_ = 3;
 
         // ---------- DWA safety parameters ----------
         max_accel_ = 0.6;
@@ -82,6 +82,10 @@ private:
     double robot_radius_;
 
     // ---------- PID memory ----------
+    double prev_v_ = 0.0;
+    double prev_w_ = 0.0;
+    double smooth_gain_ = 0.2;
+
     double integral_;
     double prev_error_;
     rclcpp::Time prev_time_;
@@ -280,21 +284,32 @@ private:
             return;
         }
 
+        // --- PID memory update ---
         integral_ += error * dt;
         double derivative = (error - prev_error_) / dt;
 
-        double v = Kp_ * error + Ki_ * integral_ + Kd_ * derivative;
-        v = std::max(std::min(v, v_max_), -v_max_);
+        // --- RAW PID output ---
+        double v_raw = Kp_ * error + Ki_ * integral_ + Kd_ * derivative;
+        v_raw = std::max(std::min(v_raw, v_max_), -v_max_);
 
         // ---------- Heading ----------
         double angle_error = std::atan2(dy, dx);
-        double w = Kp_angle_ * angle_error;
-        w = std::max(std::min(w, w_max_), -w_max_);
+
+        double w_raw = Kp_angle_ * angle_error;
+        w_raw = std::max(std::min(w_raw, w_max_), -w_max_);
+
+        
 
         // ---------- DWA Obstacle Layer ----------
-        auto filtered = dwa_safety_filter(v, w);
-        v = filtered.first;
-        w = filtered.second;
+        auto filtered = dwa_safety_filter(v_raw, w_raw);
+
+        // --- SMOOTHING (AFTER DWA) ---
+        double v = (1.0 - smooth_gain_) * filtered.first + smooth_gain_ * prev_v_;
+        double w = (1.0 - smooth_gain_) * filtered.second + smooth_gain_ * prev_w_;
+
+        // store for next iteration
+        prev_v_ = v;
+        prev_w_ = w;
 
         // ---------- Publish ----------
         geometry_msgs::msg::Twist cmd;

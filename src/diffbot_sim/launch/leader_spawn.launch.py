@@ -27,9 +27,9 @@ def generate_launch_description():
             arguments=[
                 '-entity', 'leader',
                 '-topic', '/leader/robot_description',
-                '-x', '1.0',
-                '-y', '0.0',
-                '-z', '0.075'
+                '-x', '2.0',
+                '-y', '1.5',
+                '-z', '0.3'
             ]
         )
     ])

@@ -26,6 +26,8 @@ setup(
     entry_points={
         'console_scripts': [
             'guide_node = diffbot_sim.guide_node:main',
+            'trajectory = diffbot_sim.trajectory:main',
+            'cmd_vel_mux = diffbot_sim.cmd_vel_mux:main'
         ],
     },
 )

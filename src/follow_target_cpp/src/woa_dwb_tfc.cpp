@@ -26,13 +26,13 @@ public:
         stop_threshold_ = 0.05;
 
         v_max_ = 0.6;
-        w_max_ = 3.0;
+        w_max_ = 3;
 
         alpha_ = 2.0;
         beta_ = 1.5;
 
-        n_whales_ = 25;
-        max_iter_ = 10;
+        n_whales_ = 30;
+        max_iter_ = 50;
 
         dt_ = 0.6;
         b_ = 1.0;
@@ -49,7 +49,7 @@ public:
         prev_w_ = 0.0;
         smooth_gain_ = 0.2;
 
-        cmd_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
+        cmd_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/woa_cmd_vel", 10);
 
         scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
             "/scan", 10, std::bind(&WOA_Follow::scan_callback, this, _1));

@@ -3,18 +3,15 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
-    IncludeLaunchDescription,
-    GroupAction,
-    RegisterEventHandler,
-    ExecuteProcess
+    IncludeLaunchDescription
 )
-from launch.conditions import IfCondition, UnlessCondition
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression, Command
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
-from launch.event_handlers import OnProcessExit
 import xacro
+from launch.actions import ExecuteProcess
+
 
 def generate_launch_description():
     package_name = 'diffbot_sim'
@@ -25,24 +22,33 @@ def generate_launch_description():
         default_value='true',
         description='Launch Nav2 stack'
     )
-    # Specify the path to your world file
-    world_file_path = os.path.join(
-        get_package_share_directory(package_name), 'worlds', 'round_obstacle.world' 
+
+    # =========================================================
+    # WORLD PATH (AWS BOOKSTORE)
+    # =========================================================
+    world_file_path = os.path.expanduser(
+        '~/ros2_ws/src/diffbot_sim/aws_worlds/bookstore/worlds/bookstore.world'
     )
 
-    gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')
-        ),
-        launch_arguments={'world': world_file_path}.items()
+    # ✅ FIXED: direct Gazebo launch (IMPORTANT)
+    gazebo = ExecuteProcess(
+        cmd=[
+            'gazebo',
+            '--verbose',
+            '-s', 'libgazebo_ros_factory.so',
+            world_file_path
+        ],
+        output='screen'
     )
 
-    gazebo_ros2_control_demos_path = os.path.join(
-        get_package_share_directory('diffbot_sim'))
-
-    xacro_file = os.path.join(gazebo_ros2_control_demos_path,
-                              'urdf',
-                              'robot.xacro.urdf')
+    # =========================================================
+    # ROBOT DESCRIPTION
+    # =========================================================
+    xacro_file = os.path.join(
+        get_package_share_directory(package_name),
+        'urdf',
+        'robot.xacro.urdf'
+    )
 
     doc = xacro.parse(open(xacro_file))
     xacro.process_doc(doc)
@@ -55,37 +61,55 @@ def generate_launch_description():
         parameters=[params]
     )
 
+    spawn_entity = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-topic', 'robot_description',
+            '-entity', 'diffbot',
+            '-x', '0.0',
+            '-y', '0.0',
+            '-z', '0.3'
+        ],
+        output='screen'
+    )
 
-    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-topic', 'robot_description',
-                                   '-entity', 'diffbot'],
-                        output='screen')
+    # =========================================================
+    # SLAM
+    # =========================================================
     slam = IncludeLaunchDescription(
-    PythonLaunchDescriptionSource(
-        os.path.join(
-            get_package_share_directory('slam_sim'),
-            'launch',
-            'slam.launch.py'
-        )
-    ),
-    launch_arguments={
-        'mode': 'mapping',
-        'use_sim_time': 'true'
-    }.items()
-   )
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('slam_sim'),
+                'launch',
+                'slam.launch.py'
+            )
+        ),
+        launch_arguments={
+            'mode': 'mapping',
+            'use_sim_time': 'true'
+        }.items()
+    )
 
-       
+    # =========================================================
+    # NAVIGATION
+    # =========================================================
     navigation = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('diffbot_sim'), 'launch', 'bringup_navigation.py'
-        )]),
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory(package_name),
+                'launch',
+                'bringup_navigation.py'
+            )
+        ),
         launch_arguments={
             'use_sim_time': 'true',
             'log_level': 'ERROR',
             'params_file': os.path.join(
-                get_package_share_directory('diffbot_sim'),
+                get_package_share_directory(package_name),
                 'config',
-                'nav2_params.yaml')
+                'nav2_params.yaml'
+            )
         }.items(),
         condition=IfCondition(use_nav2)
     )

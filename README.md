@@ -28,6 +28,9 @@ source install/setup.bash
 ### Nav2:
 
 ros2 launch diffbot_sim sim.launch.py use_nav2:=true
+ros2 run diffbot_sim cmd_vel_mux
+
+
 
 
 ## Terminal 2 leaderbot
@@ -58,4 +61,9 @@ ros2 run follow_target_nav2 pid_follow
 ## Terminal 7  — guide node(works only on house.world)
 
 ros2 run diffbot_sim guide_node
+
+## Terminal 8  — GUI
+cd ~/ros2_ws
+python3 src/robot_gui/robot_gui/main.py
+
 

@@ -10,79 +10,82 @@
       <uri>model://sun</uri>
     </include>
 
-    <!-- ✅ CAMERA VIEW (TOP-DOWN) -->
+    <!-- CAMERA VIEW -->
     <gui fullscreen='0'>
       <camera name='top_view'>
-        <!-- x y z roll pitch yaw -->
-        <pose>0 0 3 0 1.57 0</pose>
+        <pose>0 0 5 0 1.57 0</pose>
       </camera>
     </gui>
 
     <!-- ================= WALLS ================= -->
 
+    <!-- TOP -->
     <model name="wall_1">
       <static>true</static>
       <link name="link">
-        <pose>0 5 0.5 0 0 0</pose>
+        <pose>0 8 0.5 0 0 0</pose>
         <collision name="collision">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>20 0.2 1</size></box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>20 0.2 1</size></box>
           </geometry>
         </visual>
       </link>
     </model>
 
+    <!-- BOTTOM -->
     <model name="wall_2">
       <static>true</static>
       <link name="link">
-        <pose>0 -5 0.5 0 0 0</pose>
+        <pose>0 -8 0.5 0 0 0</pose>
         <collision name="collision">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>20 0.2 1</size></box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>20 0.2 1</size></box>
           </geometry>
         </visual>
       </link>
     </model>
 
+    <!-- RIGHT -->
     <model name="wall_3">
       <static>true</static>
       <link name="link">
-        <pose>6 0 0.5 0 0 1.57</pose>
+        <pose>10 0 0.5 0 0 1.57</pose>
         <collision name="collision">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>16 0.2 1</size></box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>16 0.2 1</size></box>
           </geometry>
         </visual>
       </link>
     </model>
 
+    <!-- LEFT -->
     <model name="wall_4">
       <static>true</static>
       <link name="link">
-        <pose>-6 0 0.5 0 0 1.57</pose>
+        <pose>-10 0 0.5 0 0 1.57</pose>
         <collision name="collision">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>16 0.2 1</size></box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
-            <box><size>12 0.2 1</size></box>
+            <box><size>16 0.2 1</size></box>
           </geometry>
         </visual>
       </link>
